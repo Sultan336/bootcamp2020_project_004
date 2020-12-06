@@ -1,0 +1,9 @@
+.target{
+  background-color: red;
+  color: bisque;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 100px;
+  height: 100px;
+}

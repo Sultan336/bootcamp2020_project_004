@@ -1,9 +1,27 @@
-.target{
-  background-color: red;
-  color: bisque;
-  display: flex;
-  justify-content: center;
-  align-self: center;
-  width: 100px;
+
+
+
+
+.moon {
   height: 100px;
+  width: 100px;
+  border-left: 15px solid#fff;
+  border-radius: 80%;
+  margin: auto;
+  margin-top: 50px;
+  box-shadow: 0 0 150px 80px rgb(255, 60, 0);
+  
+  /* box-shadow: 0 0 60px rgb(255, 60, 0),
+                 0 0 100px rgb(185, 160, 24),
+                inset 0 5px 12px 26px #F5F5F5,
+                 inset -2px 8px 15px 36px #E6E6DB; */
+  transition: 1s;
+  transition: 1s;
+  right:1000px;
+  top: 300px;
+  position: absolute;
+  transform-origin: 50% 500px; 
+}
+body{
+  background-color: black;
 }

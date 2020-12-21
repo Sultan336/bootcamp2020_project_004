@@ -3,8 +3,6 @@ import "./style.css";
 import useWebAnimations from "@wellyshen/use-web-animations";
 
 export const RedQueenRace = () => {
-    var playbackrateRQ = 1;
-    var playbackrateBG = 0;
 
     const sceneryFrames = [
         { transform: 'translateX(100%)' },
@@ -13,14 +11,12 @@ export const RedQueenRace = () => {
 
     const sceneryTimingBackground = {
         duration: 36000,
-        iterations: Infinity,
-        playbackRate: playbackrateBG,
+        iterations: Infinity
     };
 
     const sceneryTimingForeground = {
         duration: 12000,
-        iterations: Infinity,
-        playbackRate: playbackrateBG,
+        iterations: Infinity
     };
 
 
@@ -49,62 +45,72 @@ export const RedQueenRace = () => {
         { transform: 'translateY(-100%)' }
     ];
 
+    //   var redQueen_alice_sprite = document.getElementById('red-queen_and_alice_sprite');
 
-    const spirteTiming = {
-        easing: "steps(7, end)",
-        direction: "reverse",
-        duration: 600,
-        playbackRate: playbackrateRQ,
-        iterations: Infinity,
-    };
+    //   var redQueen_alice = redQueen_alice_sprite.animate(
+    //   spriteFrames, {
+    //     easing: 'steps(7, end)',
+    //     direction: "reverse",
+    //     duration: 600,
+    //     playbackRate: 1,
+    //     iterations: Infinity
+    //   });
+
     const redQueen_alice = useWebAnimations({
         keyframes: spriteFrames,
-        timing: spirteTiming,
+        timing: {
+            easing: 'steps(7, end)',
+            direction: "reverse",
+            duration: 600,
+            playbackRate: 1,
+            iterations: Infinity,
+        }
     });
 
     //   /* Alice tires so easily! 
     //     Every so many seconds, reduce their playback rate so they slow a little. 
     //   */
+    //   var sceneries = [foreground1Movement, foreground2Movement, background1Movement, background2Movement];
+
+    //   var adjustBackgroundPlayback = function() {
+    //     if (redQueen_alice.playbackRate < .8) {
+    //       sceneries.forEach(function(anim) {
+    //         anim.playbackRate = redQueen_alice.playbackRate/2 * -1;
+    //       });
+    //     } else if (redQueen_alice.playbackRate > 1.2) {
+    //       sceneries.forEach(function(anim) {
+    //         anim.playbackRate = redQueen_alice.playbackRate/2;
+    //       });
+    //     } else {
+    //       sceneries.forEach(function(anim) {
+    //         anim.playbackRate = 0;    
+    //       });
+    //     }   
+    //   }
+    //   adjustBackgroundPlayback();
 
     //   /* If Alice and the Red Queen are running at a speed of 1, the background doesn't move. */
     //   /* But if they fall under 1, the background slides backwards */
+    //   setInterval( function() {
+    //     /* Set decay */
+    //     if (redQueen_alice.playbackRate > .4) {
+    //       redQueen_alice.playbackRate *= .9;    
+    //     } 
+    //     adjustBackgroundPlayback();
+    //   }, 3000);
 
-    const adjustBackgroundPlayback = () => {
-        if (playbackrateRQ < 0.8) {
-            playbackrateBG = (playbackrateRQ / 2) * -1;
-        } else if (playbackrateRQ > 1.2) {
-            playbackrateBG = playbackrateRQ / 2;
-        } else {
-            playbackrateBG = 0;
-        }
-        foreground1Movement.getAnimation().playbackRate = playbackrateBG;
-        foreground2Movement.getAnimation().playbackRate = playbackrateBG;
-        background1Movement.getAnimation().playbackRate = playbackrateBG;
-        background2Movement.getAnimation().playbackRate = playbackrateBG;
-    };
+    const goFaster = () => {
+        /* But you can speed them up by giving the screen a click or a tap. */
+        redQueen_alice.getAnimation().playbackRate *= 1.1;
+    }
+    // console.log(redQueen_alice.getAnimation());
 
     useEffect(() => {
-        const fganimation = foreground1Movement.getAnimation();
-        fganimation.currentTime = fganimation.effect.getTiming().duration / 2;
-
-        const bganimation = background1Movement.getAnimation();
-        bganimation.currentTime = bganimation.effect.getTiming().duration / 2;
-
-        setInterval(() => {
-            /* Set decay */
-            if (playbackrateRQ > 0.4) {
-                playbackrateRQ *= 0.9;
-                redQueen_alice.getAnimation().playbackRate = playbackrateRQ;
-            }
-            adjustBackgroundPlayback();
-        }, 3000);
-
-        document.addEventListener("click", () => {
-            playbackrateRQ *= 1.1;
-            redQueen_alice.getAnimation().playbackRate = playbackrateRQ;
-            adjustBackgroundPlayback();
-        });
+        document.addEventListener("click", goFaster);
     });
+
+    //   document.addEventListener("click", goFaster);
+    //   document.addEventListener("touchstart", goFaster);
 
     return (
         <div>
